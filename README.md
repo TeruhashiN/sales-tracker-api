@@ -15,52 +15,69 @@ This project allows recording sales transactions and retrieving monthly sales re
 ---
 
 ## Project Structure
+
+```
 sales-tracker
 │
 ├── src
-│ ├── db
-│ │ └── connection.js
-│ └── server.js
+│   ├── db
+│   │   └── connection.js
+│   └── server.js
 │
 ├── database
-│ ├── schema.sql
-│ └── seed.sql
+│   ├── schema.sql
+│   └── seed.sql
 │
 ├── package.json
 ├── .gitignore
 └── README.md
-
+```
 
 ---
 
 ## Setup Instructions
 
 ### 1. Clone the repository
+```
 git clone https://github.com/TeruhashiN/sales-tracker-api.git
 cd sales-tracker-api
+```
 
 
 ### 2. Install dependencies
+```
 npm install
+```
 
 
 ### 3. Setup the database
-Start MySQL (XAMPP or other MySQL server).
-Create a database: sales_tracker
 
-Import the SQL Files:
+Start MySQL (XAMPP or other MySQL server).
+
+Create database:
+
+```
+sales_tracker
+```
+
+
+Import SQL files:
+
+```
 database/schema.sql
 database/seed.sql
-
+```
 
 ### 4. Configure environment variables
 Create a `.env` file:
+
+```
 PORT=5000
 DB_HOST=localhost
 DB_USER=root
 DB_PASSWORD=
 DB_NAME=sales_tracker
-
+```
 
 ### 5. Run the server
 Server should run at: http://localhost:5000
@@ -112,7 +129,7 @@ Example response:
 Testing the API
 Insomnia(currently using) or Postman
 
-Author
-Brylle Justin Heraldo
+**Author
+Brylle Justin Heraldo**
 
 
