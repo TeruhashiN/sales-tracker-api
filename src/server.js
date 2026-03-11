@@ -70,7 +70,7 @@ fastify.post('/products', async (request, reply) => {
     reply.status(201)
     return {
       message: 'Product created successfully',
-      customerId: result.insertId
+      productId: result.insertId
     }
   } catch (error) {
     reply.status(500)
@@ -100,6 +100,46 @@ fastify.post('/sales', async (request, reply) => {
     reply.status(500)
     return {
       message: 'Failed to create sale',
+      error: error.message
+    }
+  }
+})
+
+// Get sales for a specific month
+fastify.get('/sales', async (request, reply) => {
+  const { month } = request.query
+
+  if (!month) {
+    reply.status(400)
+    return {
+      message: 'Month query is required. Example: /sales?month=2026-03'
+    }
+  }
+
+  try {
+    const [rows] = await pool.query(
+      `
+      SELECT
+        customers.name AS customer,
+        products.name AS product,
+        sales.date
+      FROM sales
+      JOIN customers ON sales.customer_id = customers.id
+      JOIN products ON sales.product_id = products.id
+      WHERE DATE_FORMAT(sales.date, '%Y-%m') = ?
+      ORDER BY sales.date ASC
+      `,
+      [month]
+    )
+
+    return {
+      message: 'Sales retrieved successfully',
+      data: rows
+    }
+  } catch (error) {
+    reply.status(500)
+    return {
+      message: 'Failed to fetch sales',
       error: error.message
     }
   }
